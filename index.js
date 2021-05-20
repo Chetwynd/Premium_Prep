@@ -1,23 +1,36 @@
-function transformEmployeeData(employeeData) {
-  var array = [];
- //need to get to each element in the array
- for(var index = 0; index < employeeData.length; index++)
- {
-   //create a new object for each new row or employee
-   var newObject = {};
+var customerData = {
+  'Joe': {
+    visits: 1
+  },
+  'Carol': {
+    visits: 2
+  },
+  'Howard': {
+    visits: 3,
+  },
+  'Carrie': {
+    visits: 4
+  }
+};
 
-   for(var secondIndex = 0; secondIndex < employeeData[index].length; secondIndex++)
-   {
-     for(var thirdIndex = 0; thirdIndex < employeeData[index][secondIndex].length;thirdIndex+=2 )
-     {
-      // for the first object
-      var currentKey = employeeData[index][secondIndex][thirdIndex];
-      var currentValue = employeeData[index][secondIndex][thirdIndex + 1];
-      
-     newObject[currentKey] = currentValue;
-     }
-   }
-   array.push(newObject);
- }
- return array;
+function greetCustomer(firstName) 
+{
+  var customerObject = customerData[firstName];
+  //console.log(customerData[firstName]['visits']);
+  if(customerObject === undefined)
+  {
+      return 'Welcome! Is this your first time?';
+  }
+  if(customerObject.visits === 1)
+  {
+      return "Welcome back, " + firstName + "! We're glad you liked us the first time";
+  }
+  if(customerObject.visits >= 2)
+  {
+      return "Welcome back, " + firstName + "! So glad to see you again!";
+  }
 }
+
+
+console.log(greetCustomer('Joe'));
+
