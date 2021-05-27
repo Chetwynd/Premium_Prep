@@ -1,63 +1,82 @@
-function addFullNameProp(obj)
+// Skeleton
+
+// FUNCTION DEFINITION(S)
+function average(numbers)
 {
   // edge case
-  if(obj === undefined || typeof obj !== 'object' || Array.isArray(obj) || obj === null)
+  if(numbers === undefined || numbers === null || !Array.isArray(numbers) || numbers.length === 0)
   {
-    return {};
+    return undefined;
   }
-  var firstName = obj.firstName;
-  var lastName = obj['lastName'];
-  
-  if(firstName && lastName)
-    obj['fullName'] = firstName + ' ' + lastName;
-
-  return obj;
+  // uses sum function
+  var average = sum(numbers) / numbers.length;
+  // returns the average of an array of numbers
+  return average;
 }
 
-function assertObjectsEqual(actual,expected, testName)
+function sum(numbers) 
 {
-  var actualString = JSON.stringify(actual);
-  var expectedString = JSON.stringify(expected);
-  
-  if(actualString === expectedString)
+  // returns the sum of an array of numbers
+  // accumulator
+  var sum = 0;
+  // iterate
+  for(var index = 0; index < numbers.length; index++)
+  {
+    sum += numbers[index];
+  }
+  return sum;
+}
+
+// ASSERTION FUNCTION(S) TO BE USED
+function assertAverageEquals(actual, expected, testName)
+{
+  if(actual === expected)
   {
     console.log('Passed');
   }
-  else 
+  else
   {
-    console.log('FAILED [' + testName + '] Expected ' + expectedString + ' but got ' + actualString);
+    console.log('FAILED. [' + testName + '] Expected ' + expected + ' , but got ' + actual);  
   }
 }
 
-var newObject = {
-    firstName: 'Johnny',
-    lastName: 'Walker'
-};
-
-// Test Cases
-
-var expectedObject = {
-    firstName: 'Johnny',
-    lastName: 'Walker',
-    fullName: 'Johnny Walker'
-};
+// TESTS CASES
 
 // Test Case 1
-var output1 = addFullNameProp({});
-
-assertObjectsEqual(output1, {} , 'It takes an empty object, {}, as input and returns an empyt object');
+var output1 = average([2,4,8,9,12]);
+var expected1 = 7;
+//
+assertAverageEquals(output1, expected1, 'The average of 2,4,8,9 and 12 is 7');
 
 // Test Case 2
-var output2 = addFullNameProp([]);
-
-assertObjectsEqual(output2 , {} , 'It takes an empty array, [], as input and returns an empyt object');
+var output2 = average(0);
+var expected2 = undefined;
+//
+assertAverageEquals(output2, expected2, 'The average of 0 is undefined');
 
 // Test Case 3
-var output3 = addFullNameProp(newObject);
-
-assertObjectsEqual(output3, expectedObject, 'It takes an object , newObject , and adds the fullName property to it');
+var output3 = average([]);
+var expected3 = undefined;
+//
+assertAverageEquals(output3, expected3, 'The average of [] is undefined');
 
 // Test Case 4
-var output4 = addFullNameProp(null);
+var output4 = average(null);
+var expected4 = undefined;
+//
+assertAverageEquals(output4, expected4, "The average of 'null' is undefined");
 
-assertObjectsEqual(output4, {}, "It takes in 'null' , as input and returns an empyt object");
+// Test Case  5
+var output5 = average([2,-4,8,-9,12]);
+var expected5 = 1.8;
+//
+assertAverageEquals(output5, expected5, 'The average of 2,-4,8,-9 and 12 is 1.8');
+
+// Test Case  6
+var output6 = average([0]);
+var expected6 = 0;
+//
+assertAverageEquals(output5, expected5, 'The average of 0 is 0');
+
+
+
