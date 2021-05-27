@@ -1,57 +1,52 @@
-// FUNCTION DEFINITION(S)
-function map(array, callbackFunction)
+function addFullNameProp(obj)
 {
-  if(array === undefined || array.length === 0)
-  {
-    return undefined;
-  }
-  
-  var sum = 0;
+  var firstName = obj.firstName;
+  var lastName = obj[lastName];
 
-  for (var i = 0; i < array.length; i++) 
+  if (firstName && lastName) 
   {
-    var element = array[i];
-    
-    sum += callbackFunction(element);
+    obj['fullName'] = firstName + ' ' + lastName;
   }
-  return sum;
+
+  return obj;
 }
 
-function cubeAll(numbers) {
-  return map(numbers, function(n) {
-    return n * n * n;
-  });
-}
-
-// ASSERTION FUNCTION(S) TO BE USED
-function assertArraysEqual(expected, actual, testName)
+function assertObjectsEqual(actual,expected, testName)
 {
   if(actual === expected)
   {
-    console.log("Passed");
+    console.log('Passed');
   }
-  else
+  else 
   {
-    console.log("FAILED. [" + testName + "]. Expected " + expected + " but got " + actual);  
+    console.log('FAILED [' + testName + '] Expected ' + expected + ' but got ' + actual);
   }
 }
 
-// TESTS CASES
+var newObject = {
+    firstName: 'Johnny',
+    lastName: 'Walker'
+};
 
-// Test 1
-assertArraysEqual(99, cubeAll([2,3,4]), 'Get the sum of the cube of 2, 3 and 4');
-// 2 ** 3 + 3 ** 3 + 4 ** 3 = 8 + 27 + 64 = 99
+// Test Cases
 
+var object = {}
 
-// Test 2
-assertArraysEqual(485, cubeAll([8,-3]), 'Get the sum of the cube of 8 and -3');
-// 8 ** 3 + -3 ** 3 = 512 + -27  = 485
+// Test Case 1
+var output1 = addFullNameProp({});
 
+assertObjectsEqual(output1, {} , '');
 
-// Test 3
-assertArraysEqual(0, cubeAll([0]), 'Get the cube of 0');
-// 0
+// Test Case 2
+var output2 = addFullNameProp([]);
 
-// Test 4
-assertArraysEqual(undefined, cubeAll([]), 'Get the cube of []');
-// undefined
+assertObjectsEqual(output2 , {} , '');
+
+// Test Case 3
+var output3 = addFullNameProp(newObject);
+
+assertObjectsEqual(output3, {firstName: 'Johnny', lastName: 'Walker', fullName: 'Johnny Walker'}, '');
+// Test Case 4
+var output4 = addFullNameProp(null);
+
+assertObjectsEqual(output4, {}, '');
