@@ -1,55 +1,18 @@
-// Skeleton
-
-// FUNCTION DEFINITION(S)
-function findMaxRepeatCountInWord(word) 
-{
-  // Break up individual words into individual letters.
-  var characterArray = word.split('');
-  
-  // Object to keep track of each character count
-  var countObject = {};
-  
-  // keep track of the max count
-  var maxCount = 0;
-  
-  // Count the instances of each letter
-  for(var index = 0; index < characterArray.length; index++)
-  {
-   var currentCharacter = characterArray[index];
-
-  // Iterate all the counts and find the highest 
-   if(countObject[currentCharacter] === undefined)
-   {
-     countObject[currentCharacter] = 1;
-   }
-   else
-   {
-     countObject[currentCharacter]++;
-   }
-   if(countObject[currentCharacter] > maxCount)
-   {
-     maxCount = countObject[currentCharacter];
-   }
+function caseInSwitch(val) {
+  var answer = "";
+  // Only change code below this line
+  switch(val){
+  case 1: answer = 'alpha'; 
+           break;
+  case 2: answer = 'beta';
+           break;
+  case 3: answer = 'gamma';
+           break;
+  case 4: answer = 'delta';
+           break;
   }
-
-  // Return this word's max repeat count
-    return maxCount;
+  // Only change code above this line
+  return answer;
 }
 
-function findFirstWordWithMostRepeatedChars(text) {
-  var maxRepeatCountOverall = 0;
-  var wordWithMaxRepeatCount = '';
-
-  // Break up input text into words (space-delimited).
-  // For each word...
-    var repeatCountForWord = findMaxRepeatCountInWord(word)
-    // If that max repeat count is higher than the overall max repeat count, then
-      // update maxRepeatCountOverall
-      // update wordWithMaxRepeatCount
-
-  return wordWithMaxRepeatCount;
-}
-
-// ASSERTION FUNCTION(S) TO BE USED
-
-// TESTS CASES
+caseInSwitch(1);
