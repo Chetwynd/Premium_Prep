@@ -1,36 +1,91 @@
-//Given a list of non-negative integers and a target sum, find a pair of numbers that sums to the target sum.
+//Write the function detectNetwork. It should accept a string or a number for its cardNumber argument and, based on the provided cardData, return the //appropriate network string (or undefined if there's no match).
 
-function findPairForSum(integers, target) 
+
+var cardData = [
+  {
+    'issuer/network': 'Visa',  // card issuer (network)
+    prefixes: ['4'],	       // beginning digits
+    lengths: [13, 16, 19]      // lengths of card numbers
+  },
+  {
+    'issuer/network': 'Mastercard',
+    prefixes: ['51', '52', '53', '54', '55'],
+    lengths: [16]
+  },
+  {
+    'issuer/network': 'American Express',
+    prefixes: ['34', '37'],
+    lengths: [15]
+  },
+  {
+    'issuer/network': 'Diner\'s Club',
+    prefixes: ['38', '39'],
+    lengths: [14]
+  }
+];
+
+function detectNetwork(cardNumber, cardData) 
 {
   // your solution here
-  var integerPairArray = [];
-  // first have the first element as one of the pairs
-  var firstInteger = integers[0];
-  // will store the sum of integers
-  var sum = 0;
-    // iterate through the remaining elements
-  for(var index = 1; index < integers.length; index++)
+  // input: cardNumber - string / number 
+  // edge case
+  // 
+  // accumulator
+  var network = '';
+
+  // make sure that cardNumber is a string
+  if(typeof cardNumber === 'number')
   {
-   // add each to the first element and compare the result with the target
-    sum = firstInteger + integers[index];
-      // if true then return the pair in an array
-   if(sum === target)
-   {
-     integerPairArray.push(firstInteger, integers[index]);
-     break;
-   }
-   // if the end of the array is reached and there is no result
-   if(index === integers.length - 1 && sum !== target)
-   {
-     // remove the first element from the array
-     integers.shift();
-      // repeat the loop
-     integerPairArray = findPairForSum(integers, target);
-   }   
+    cardNumber = cardNumber.toString();
+    console.log(cardNumber);
   }
-  return integerPairArray;
+  // check the first two digits of the cardnumber
+    var firstIndex = cardNumber[0];
+    var firstTwoIndexes = cardNumber[0] + cardNumber[1];
+    
+    // if the first index is 4 then it is possibly visa
+    if(firstIndex === cardData[0]['prefixes'][0])
+    {
+     //if the cardnumber length is either 13,16, or 19 
+     if(cardNumber.length === cardData[0]['lengths'][0] || cardNumber.length === cardData[0]['lengths'][1] || cardNumber.length === cardData[0]['lengths'][2])
+     { // network is visa
+       network = cardData[0]['issuer/network'];
+     }
+    }  
+    // else
+    else
+    {  // do a swich statement
+      switch(firstTwoIndexes)
+      {// '34', '37' is amex
+        case cardData[2]['prefixes'][0]:
+        case cardData[2]['prefixes'][1]:if(cardNumber.length === cardData[2]['lengths'][0]) // if the length is 15 then the network is amex
+                                        { 
+                                          network = cardData[2]['issuer/network']
+                                        }
+                                        break;
+        // '38', '39' is Diners club
+        case cardData[3]['prefixes'][0]:
+        case cardData[3]['prefixes'][1]:if(cardNumber.length === cardData[3]['lengths'][0])// if the length is 14 then network is diners club
+                                        { 
+                                          network = cardData[3]['issuer/network']
+                                        }
+                                        break;
+        //'51', '52', '53', '54', '55' is mastercard
+        case cardData[1]['prefixes'][0]:
+        case cardData[1]['prefixes'][1]:
+        case cardData[1]['prefixes'][2]:
+        case cardData[1]['prefixes'][3]:
+        case cardData[1]['prefixes'][4]:if(cardNumber.length === cardData[1]['lengths'][0])// if length is 16 then network is mastercard
+                                        { 
+                                          network = cardData[1]['issuer/network']
+                                        }
+                                        break;
+      }
+      
+    }
+  return network;
 }
 
 // example
-var pair = findPairForSum([3, 34, 4, 12, 5, 2], 38);
-console.log(pair); // --> [12, 5]
+var network = detectNetwork('343456789012345', cardData);
+console.log(network); // --> 'American Express'
