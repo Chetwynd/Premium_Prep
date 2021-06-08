@@ -1,27 +1,77 @@
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var findMaxConsecutiveOnes = function(nums) {
- // first convert our array to a string
-    var numsString = nums.join('');
-    console.log(numsString);
- // do a split on the string with '0' as the separator
-    var numsSplitArray = numsString.split('0');
-    console.log(numsSplitArray);
- // now iterate through the array to see which string has the max length
-    var maxConsecutiveOnes = 0;
+// Skeleton
+
+// FUNCTION DEFINITION(S)
+function findMaxRepeatCountInWord(word) {
+  // Break up individual words into individual letters.
+  var objChar = {};// object to store each letter in the word
+  var maxCharCount = 0;
+  // Count the instances of each letter
+  for(var index = 0; index < word.length; index++)
+  {
+    var currentChar = word[index];
     
-    for(var index = 0; index < numsSplitArray.length; index++)
+    if(objChar[currentChar] === undefined)
     {
-      var currentIndexLength = numsSplitArray[index].length;
-
-      maxConsecutiveOnes = Math.max(maxConsecutiveOnes, currentIndexLength);
+      obj[currentChar] = 1;
     }
-   return  maxConsecutiveOnes;
-};
+    else
+    {
+      obj[currentChar]++;
+    }
+    // Iterate all the counts and find the highest
+    maxCharCount = Math.max(maxCharCount, obj[currentChar]);
+  }
+  // Return this word's max repeat count
+  return maxCharCount;
+}
 
-nums = findMaxConsecutiveOnes([1,0,1,1,0,1]);
+function findFirstWordWithMostRepeatedChars(text) {
+  var maxRepeatCountOverall = 0;
+  var wordWithMaxRepeatCount = '';
 
-console.log(nums);
+  // Break up input text into words (space-delimited).
+  var textArray = text.split(' ');
+  // For each word...
+  for(var index = 0; index < textArray.length; index++)
+  {
+    var word = textArray[index];// current word in the textArray
+    
+    var repeatCountForWord = findMaxRepeatCountInWord(word)
+    // If that max repeat count is higher than the overall max repeat count, then
+    if(repeatCountForWord > maxRepeatCountOverall)
+    {
+      // update maxRepeatCountOverall
+      maxRepeatCountOverall = repeatCountForWord;
+      // update wordWithMaxRepeatCount  
+      wordWithMaxRepeatCount = word;
+    }
+  }
+  return wordWithMaxRepeatCount;
+}
 
+// ASSERTION FUNCTION(S) TO BE USED
+function assertEquals(actual, expected, testName)
+{
+ if(actual === expected)
+ {
+   console.log('Passed');
+ }
+ else
+ {
+   console.log('FAILED. Expected ' + expected + ', but got ' + actual); 
+ }
+}
+
+// TESTS CASES
+
+// Test 1
+var test1 = findFirstWordWithMostRepeatedChars('Today is Tuesday, June 8th!');
+assertEquals(test1, 'Today', 'Check and log to the console the word in a text that has the most number of repeated characters.');
+
+// Test 2
+var test2 = findFirstWordWithMostRepeatedChars(text);
+assertEquals(test2, expected, testName);
+
+// Test 3
+var test3 = findFirstWordWithMostRepeatedChars(text);
+assertEquals(test3, expected, testName);
