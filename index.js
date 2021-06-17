@@ -1,32 +1,23 @@
-// Skeleton
-
-// FUNCTION DEFINITION(S)
-function findLongestPalindrome(sentence) {
-  // split sentence into words
-  var words = sentence.split(' ');
-  // iterate words and collect the palindromes
-  // sort the list of palindromes by word length
-  // return the largest item in the sorted list
-}
-
-
-function reverseString(string) {
-
-}
-
-function isPalindrome(word) {
-  // hint: you can detect palindromes by comparing a string to its reverse
-}
-
-function sortAscendingByLength(a, b) {
-  if (a.length > b.length) {
-    return 1;
-  } else if (a.length < b.length) {
-    return -1;
+function renderInventory(inventory)
+{
+  //iterate through inventory to access each item
+  for(var index = 0; index < inventory.length; index++)
+  {
+    var currentObject = inventory[index];
+    var currentShoeMaker = currentObject['name'];
+    var currentShoeDetailsArray = currentObject['shoes'];
+    var currentListArray = [];
+    // first add the current shoemaker to our list array
+    currentListArray.push(currentShoeMaker);
+    // then iterate through the currentShoeNameArray to add the shoes and prices
+    for(var shoeIndex = 0; shoeIndex < currentShoeNameArray.length; shoeIndex++)
+    {
+      var currentShoeName = currentShoeDetailsArray[shoeIndex]['name'];
+      var currentShoePrice = currentShoeDetailsArray[shoeIndex]['price'];
+      
+      currentListArray.push(currentShoeName, currentShoePrice);
+    }
   }
-  return 0;
 }
 
-// ASSERTION FUNCTION(S) TO BE USED
-
-// TESTS CASES
+//Create helper functions if needed
